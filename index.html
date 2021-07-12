@@ -23,13 +23,31 @@
 </head>
 
 <body>
-
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
   <div id="app">
-    {{ message }}
+    <h1>Bitcoin Price Index</h1>
+  
+    <section v-if="errored">
+      <p>We're sorry, we're not able to retrieve this information at the moment, please try back later</p>
+    </section>
+  
+    <section v-else>
+      <div v-if="loading">Loading...</div>
+  
+      <div
+        v-else
+        v-for="currency in info"
+        class="currency"
+      >
+        {{ currency.description }}:
+        <span class="lighten">
+          <span v-html="currency.symbol"></span>{{ currency.rate_float | currencydecimal }}
+        </span>
+      </div>
+  
+    </section>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="js/vendor/modernizr-3.11.2.min.js"></script>
   <script src="js/plugins.js"></script>
   <script src="js/main.js"></script>
